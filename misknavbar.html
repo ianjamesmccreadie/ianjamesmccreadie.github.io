@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {margin: 0;}
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li button {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+ul.topnav li a.active {background-color: #4CAF50;}
+
+
+ul.topnav li button:hover:not(.active) {background-color: #111;}
+ul.topnav li button.active {background-color: #4CAF50;}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px) {
+  ul.topnav li.right, 
+  ul.topnav li {float: none;}
+}
+</style>
+</head>
+<body>
+
+<ul class="topnav">
+  <li><a class="active" href="#home">Goal 9</a></li>
+  <li><a href="#news">Goal 11</a></li>
+  <li><a href="#contact">Link</a></li>
+  <li><button type="button" id = "emailBTN">Click Me!</button></li>
+  <li class="right"><a href="#about">About</a></li>
+
+</ul>
+
+<div style="padding:0 16px;">
+  <h2>Responsive Topnav Example</h2>
+  <p>This example use media queries to stack the topnav vertically when the screen size is 600px or less.</p>
+  <p>You will learn more about media queries and responsive web design later in our CSS Tutorial.</p>
+  <h4>Resize the browser window to see the effect.</h4>
+
+</div>
+<div id = "emails">
+</div>
+
+<script>
+
+	//BINDS THE FUNCTION TO THE BUTTON
+	document.getElementById("emailBTN").onclick = addEmail;
+	//YOU CAN PRELOAD ALL YOUR DATA INTO THIS LIST AND RUN ANY ANALYSIS YOU WANT
+	//STAGE 1: PRELOAD DATA LIKE THIS
+	//STAGE 2 (IF TIME): READ DATA IN FROM SOURCE
+
+	//variables that get loaded when the page starts
+	var list = [];
+	
+
+
+	function addEmail() {
+		
+		console.log("clicked");
+		x = window.prompt("Enter Email","--");
+
+		if (x.includes('@')) {
+			list.push(x);
+		}
+		else {
+			window.alert("BAD EMAIL");
+		}
+		console.log(list)
+
+/*
+Add emails to page - Try 1:
+This code only adds the last element since innerHTML doesn't actually append, but overwrites the current conent
+problem: only adds the most recent email since it resets the inner HTML for the p tag
+*/
+/* START CODE TRY 1 
+    for (i = 0; i< list.length; i++) {
+    
+      document.getElementById("emails").innerHTML =list[i];
+  
+    }
+		
+END CODE TRY 1*/ 
+
+/*
+Add emails to page - Try 2:
+The below code adds all hte emails by first constructing a string and then adding the entire string. 
+problem:  The text will show, but is displayed outside of <p> tags which is not ideal
+*/
+
+/* START CODE TRY 2
+  listSTR = ""
+  
+  for (i = 0; i< list.length; i++) {
+      listSTR = listSTR + list[i] +"<br>";
+  }
+  document.getElementById("emails").innerHTML = listSTR;
+END CODE TRY 2*/
+
+/* 
+Add emails to page - Try 3:
+The below code adds the emails by first constructing a string and then adding the entire string. 
+problem: In this attempt because we are appending a child, which is the p tag we end up doubling up the values since the div isn't reset every time like in try 1 
+*/
+
+/* START CODE TRY 3
+  listSTR = ""
+  
+  for (i = 0; i< list.length; i++) {
+      listSTR = listSTR + list[i] +"<br>";
+  }
+  var para = document.createElement("P");  
+  para.innerHTML = listSTR;
+  document.getElementById("emails").appendChild(para);
+END CODE TRY 3 */
+
+/*
+Add emails to page - Try 4:
+This signficiantly reduces the code efficency.  Previously we tried to solve one of the issues by clearing out what is there, then reproducing the entire list.  A list of 3 or 4 elements not a problem, but a list of 3 or 4 thousand and the page load significantly slows. Since we are now using the appendChild it adds on to the list so we only have to do it for the most recent entry. 
+*/
+
+  var para = document.createElement("P");  
+  para.innerHTML = list[list.length - 1];
+  document.getElementById("emails").appendChild(para);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+
+
+
+</html>
