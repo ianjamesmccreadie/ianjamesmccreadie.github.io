@@ -26,7 +26,7 @@ function clicked() {
 			document.getElementById("results").innerHTML = "In " + value + population[i] + " percent of the population lives below the poverty line";
 		}
 	}
-
+ 
 
 
 }
